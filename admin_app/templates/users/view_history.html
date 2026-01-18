@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>User Watch History</h2>
+
+<div class="card">
+  <div class="card-body">
+
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Movie Title</th>
+          <th>Watched On</th>
+          
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr>
+          <td>Sample Movie 1</td>
+          <td>2026-01-05</td>
+          <td>1h 20m</td>
+        </tr>
+        <tr>
+          <td>Sample Movie 2</td>
+          <td>2026-01-03</td>
+         
+        </tr>
+      </tbody>
+    </table>
+
+    <a href="{% url 'user_list' %}" class="btn btn-secondary">
+      Back to Users
+    </a>
+
+  </div>
+</div>
+{% endblock %}

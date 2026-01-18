@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container-fluid mt-4">
+
+  <h3 class="page-title mb-4">📊 Movie View Reports</h3>
+
+  <div class="card shadow-lg" style="background:#020617; border:1px solid #1e293b;">
+    <div class="card-body p-0">
+
+      <table class="table table-hover mb-0">
+        <thead style="background:#020617; color:#94a3b8;">
+          <tr>
+            <th class="ps-4 py-3">Movie</th>
+            <th class="py-3">Views</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr style="border-top:1px solid #1e293b;">
+            <td class="ps-4 py-3 fw-semibold">Movie A</td>
+            <td class="py-3">
+              <span class="badge bg-primary">1200</span>
+            </td>
+          </tr>
+
+          <tr style="border-top:1px solid #1e293b;">
+            <td class="ps-4 py-3 fw-semibold">Movie B</td>
+            <td class="py-3">
+              <span class="badge bg-success">980</span>
+            </td>
+          </tr>
+
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+
+</div>
+
+{% endblock %}

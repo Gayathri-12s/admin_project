@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+
+
+<div class="row g-4">
+  <div class="col-md-3">
+    <div class="card p-3">
+      <h5>Movies</h5>
+      <h2>120</h2>
+      <a href="{% url 'movie_list' %}" class="btn btn-primary">Manage</a>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <div class="card p-3">
+      <h5>Users</h5>
+      <h2>540</h2>
+      <a href="{% url 'user_list' %}" class="btn btn-success">Manage</a>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <div class="card p-3">
+      <h5>Reports</h5>
+      <h2>8,230</h2>
+      <a href="{% url 'report' %}" class="btn btn-warning">View</a>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

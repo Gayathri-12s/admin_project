@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container-fluid mt-4">
+
+  <!-- Page Header -->
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h3 class="fw-bold">🎬 Movies</h3>
+    <a href="{% url 'add_movie' %}" class="btn btn-primary">
+      + Add Movie
+    </a>
+  </div>
+
+  <!-- Movies Table Card -->
+  <div class="card shadow-sm">
+    <div class="card-body p-0">
+
+      <table class="table table-hover align-middle mb-0">
+        <thead class="table-dark">
+          <tr>
+            <th style="width: 70%">Title</th>
+            <th class="text-center" style="width: 30%">Actions</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td class="fw-semibold">Sample Movie</td>
+
+            <!-- ACTION BUTTONS -->
+            <td class="text-center">
+              <div class="d-inline-flex gap-2">
+                <a href="{% url 'view_movie' %}"
+                   class="btn btn-sm btn-outline-info action-btn">
+                  View
+                </a>
+
+                <a href="{% url 'edit_movie' %}"
+                   class="btn btn-sm btn-outline-warning action-btn">
+                  Edit
+                </a>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+
+      </table>
+
+    </div>
+  </div>
+
+</div>
+
+{% endblock %}

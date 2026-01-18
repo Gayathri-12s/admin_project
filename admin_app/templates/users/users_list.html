@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Users</h2>
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Email</th>
+      <th>Status</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>user1@gmail.com</td>
+      <td>Active</td>
+      <td>
+        <a href="#" class="btn btn-sm btn-danger">Block</a>
+        <a href="{% url 'user_history' %}" class="btn btn-sm btn-info">
+          View History
+        </a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+{% endblock %}
