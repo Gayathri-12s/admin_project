@@ -1,38 +1,66 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h2>User Watch History</h2>
 
-<div class="card">
-  <div class="card-body">
+<div class="container-fluid mt-4">
 
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>Movie Title</th>
-          <th>Watched On</th>
-          
-        </tr>
-      </thead>
+  <h3 class="page-title mb-4">📜 User Watch History</h3>
 
-      <tbody>
-        <tr>
-          <td>Sample Movie 1</td>
-          <td>2026-01-05</td>
-          <td>1h 20m</td>
-        </tr>
-        <tr>
-          <td>Sample Movie 2</td>
-          <td>2026-01-03</td>
-         
-        </tr>
-      </tbody>
-    </table>
+  <div class="card shadow-lg"
+       style="background:#020617; border:1px solid #1e293b;">
 
-    <a href="{% url 'user_list' %}" class="btn btn-secondary">
-      Back to Users
-    </a>
+    <div class="card-body p-0">
 
+      <table class="table table-hover mb-0">
+
+        <thead style="background:#020617; color:#94a3b8;">
+          <tr>
+            <th class="ps-4 py-3">Movie</th>
+            <th class="py-3">Watched On</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          {% for item in history %}
+
+          <tr style="border-top:1px solid #1e293b;">
+
+            <td class="ps-4 py-3 fw-semibold">
+              {{ item.movie.title }}
+            </td>
+
+            <td class="py-3">
+              {{ item.watched_at|date:"d M Y" }}
+            </td>
+
+          </tr>
+
+          {% empty %}
+
+          <tr>
+            <td colspan="2"
+                class="text-center py-4 text-muted">
+              No watch history found
+            </td>
+          </tr>
+
+          {% endfor %}
+
+        </tbody>
+
+      </table>
+
+    </div>
   </div>
+
+
+  <div class="mt-3">
+    <a href="{% url 'user_list' %}" class="btn btn-secondary">
+      ← Back to Users
+    </a>
+  </div>
+
 </div>
+
 {% endblock %}

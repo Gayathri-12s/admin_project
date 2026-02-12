@@ -1,33 +1,102 @@
 {% extends 'base.html' %}
 {% block content %}
 
+<h2 class="mb-4 fw-semibold">Dashboard Overview</h2>
 
 
+<!-- STATS CARDS -->
+<div class="row g-4 mb-5">
 
-<div class="row g-4">
-  <div class="col-md-3">
-    <div class="card p-3">
-      <h5>Movies</h5>
+  <div class="col-md-4">
+    <div class="stat-card text-center">
+      <h6>Total Movies</h6>
       <h2>120</h2>
-      <a href="{% url 'movie_list' %}" class="btn btn-primary">Manage</a>
+      <p class="text-muted">Available Content</p>
     </div>
   </div>
 
-  <div class="col-md-3">
-    <div class="card p-3">
-      <h5>Users</h5>
+  <div class="col-md-4">
+    <div class="stat-card text-center">
+      <h6>Total Users</h6>
       <h2>540</h2>
-      <a href="{% url 'user_list' %}" class="btn btn-success">Manage</a>
+      <p class="text-muted">Registered Users</p>
     </div>
   </div>
 
-  <div class="col-md-3">
-    <div class="card p-3">
-      <h5>Reports</h5>
+  <div class="col-md-4">
+    <div class="stat-card text-center">
+      <h6>Total Reports</h6>
       <h2>8,230</h2>
-      <a href="{% url 'report' %}" class="btn btn-warning">View</a>
+      <p class="text-muted">Monthly Views</p>
     </div>
   </div>
+
 </div>
+
+
+<!-- CHART SECTION -->
+<div class="card chart-card p-4">
+
+  <h5 class="mb-3 fw-semibold">
+    Platform Growth (Last 6 Months)
+  </h5>
+
+  <canvas id="growthChart"></canvas>
+
+</div>
+
+
+<!-- CHART SCRIPT -->
+<script>
+
+const ctx = document.getElementById('growthChart');
+
+new Chart(ctx, {
+    type: 'line',
+
+    data: {
+        labels: ['Aug', 'Sep', 'Oct', 'Nov', 'Dec', 'Jan'],
+
+        datasets: [
+
+            {
+                label: 'Movies',
+                data: [60, 75, 90, 100, 110, 120],
+                borderColor: '#2563eb',
+                backgroundColor: 'rgba(37,99,235,0.1)',
+                tension: 0.4,
+                fill: true
+            },
+
+            {
+                label: 'Users',
+                data: [200, 280, 350, 420, 480, 540],
+                borderColor: '#16a34a',
+                backgroundColor: 'rgba(22,163,74,0.1)',
+                tension: 0.4,
+                fill: true
+            }
+
+        ]
+    },
+
+    options: {
+        responsive: true,
+
+        plugins: {
+            legend: {
+                position: 'top'
+            }
+        },
+
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+
+</script>
 
 {% endblock %}

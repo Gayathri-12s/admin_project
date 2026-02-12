@@ -1,3 +1,6 @@
+from django.db import models
+
+
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager 
 from django.db import models 
 
@@ -27,3 +30,35 @@ class User(AbstractBaseUser):
     objects = UserManager() 
  
     USERNAME_FIELD = 'email'
+    
+
+
+class Movie(models.Model):
+    title = models.CharField(max_length=255)
+    description = models.TextField()
+    release_date = models.DateField()
+    video_file = models.FileField(upload_to='movies/')
+    thumbnail = models.FileField(upload_to='thumbnails/')
+    view_count = models.IntegerField(default=0)
+    
+    def __str__(self):
+        return self.title
+  
+class Watchlist(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
+    
+    class Meta:
+     unique_together = ('user', 'movie')
+
+    def __str__(self):
+        return f"{self.user.email} - {self.movie.title}"
+    
+    
+class WatchHistory(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
+    watched_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.user.email} watched {self.movie.title}"

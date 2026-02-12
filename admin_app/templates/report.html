@@ -3,12 +3,24 @@
 
 <div class="container-fluid mt-4">
 
-  <h3 class="page-title mb-4">📊 Movie View Reports</h3>
+  <!-- Title -->
+  <h3 class="page-title mb-3">📊 Movie View Reports</h3>
 
-  <div class="card shadow-lg" style="background:#020617; border:1px solid #1e293b;">
+  <!-- Total Views -->
+  <div class="mb-4">
+    <span class="badge bg-info fs-6 px-3 py-2">
+      Total Views: {{ total_views }}
+    </span>
+  </div>
+
+  <!-- Report Table -->
+  <div class="card shadow-lg"
+       style="background:#020617; border:1px solid #1e293b;">
+
     <div class="card-body p-0">
 
       <table class="table table-hover mb-0">
+
         <thead style="background:#020617; color:#94a3b8;">
           <tr>
             <th class="ps-4 py-3">Movie</th>
@@ -17,21 +29,35 @@
         </thead>
 
         <tbody>
+
+          {% for movie in movies %}
+
           <tr style="border-top:1px solid #1e293b;">
-            <td class="ps-4 py-3 fw-semibold">Movie A</td>
+
+            <td class="ps-4 py-3 fw-semibold">
+              {{ movie.title }}
+            </td>
+
             <td class="py-3">
-              <span class="badge bg-primary">1200</span>
+              <span class="badge bg-primary">
+                {{ movie.view_count }}
+              </span>
+            </td>
+
+          </tr>
+
+          {% empty %}
+
+          <tr>
+            <td colspan="2" class="text-center py-4 text-muted">
+              No data available
             </td>
           </tr>
 
-          <tr style="border-top:1px solid #1e293b;">
-            <td class="ps-4 py-3 fw-semibold">Movie B</td>
-            <td class="py-3">
-              <span class="badge bg-success">980</span>
-            </td>
-          </tr>
+          {% endfor %}
 
         </tbody>
+
       </table>
 
     </div>

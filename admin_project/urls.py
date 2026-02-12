@@ -15,32 +15,47 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+
+
 from admin_app import views
 
 urlpatterns = [
+    
+     path('', views.admin_login, name='home'),
+   
     path('admin/', admin.site.urls),
+    
+
    # Auth
-    path('', views.admin_login, name='admin_login'),
+    path("login/", views.admin_login, name='login'),
     path('change-password/', views.change_password, name='change_password'),
+    path("logout/", views.admin_logout, name="logout"),
+
+
 
     # Dashboard
     path('dashboard/', views.dashboard, name='dashboard'),
 
     # Movies
-    path('movies/', views.movie_list, name='movie_list'),
-    path('movies/add/', views.add_movie, name='add_movie'),
-    path('movies/edit/', views.add_movie, name='edit_movie'),
+   # Movies
 
-    path('movies/view/', views.view_movie, name='view_movie'),
+path('movies/', views.movie_list, name='movie_list'),
+path('movies/add/', views.add_movie, name='add_movie'),
+path('movies/edit/<int:id>/', views.edit_movie, name='edit_movie'),
+path('movies/delete/<int:id>/', views.delete_movie, name='delete_movie'),
+path('movies/view/<int:id>/', views.view_movie, name='view_movie'),
 
     # Users
     path('users/', views.user_list, name='user_list'),
-    path('users/history/', views.user_history, name='user_history'),
+    path("users/block/<int:id>/", views.block_user, name="block_user"),
+    path("users/unblock/<int:id>/", views.unblock_user, name="unblock_user"),
+    path("users/delete/<int:id>/", views.delete_user, name="delete_user"),
+    path("users/history/<int:id>/", views.user_history, name="user_history"),
     
     path('reports/', views.report, name='report'),
     
     
+     path('api/', include(('user_api.urls', 'api'), namespace='api')),
     
-
 ]
