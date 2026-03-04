@@ -1,67 +1,126 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<div class="card col-md-8 mx-auto">
+<div class="container-fluid">
 
-  <div class="card-header bg-dark text-white">
-    <h5>Add / Edit Movie</h5>
-  </div>
+  <h3 class="page-title mb-4">{% if movie %}✏️ Edit Movie{% else %}➕ Add New Movie{% endif %}</h3>
 
-  <div class="card-body">
+  <div class="card col-md-10 mx-auto">
 
-    <form method="POST" enctype="multipart/form-data">
+    <div class="card-header">
+      <h5 class="mb-0">Movie Details</h5>
+    </div>
 
-      {% csrf_token %}
+    <div class="card-body">
 
-      <div class="mb-3">
-        <label>Title</label>
-        <input type="text"
-               name="title"
-               class="form-control"
-               value="{{ movie.title|default:'' }}"
-               required>
-      </div>
+      <form method="POST" enctype="multipart/form-data">
 
-      <div class="mb-3">
-        <label>Description</label>
-        <textarea name="description"
-                  class="form-control"
-                  rows="4"
-                  required>{{ movie.description|default:'' }}</textarea>
-      </div>
+        {% csrf_token %}
 
-      <div class="mb-3">
-        <label>Release Date</label>
-        <input type="date"
-               name="release_date"
-               class="form-control"
-               value="{{ movie.release_date|default:'' }}"
-               required>
-      </div>
+        <div class="row">
 
-      <div class="mb-3">
-        <label>Thumbnail</label>
-        <input type="file" name="thumbnail" class="form-control">
-      </div>
+          <div class="col-md-8">
 
-      <div class="mb-3">
-        <label>Video</label>
-        <input type="file" name="video_file" class="form-control">
-      </div>
+            <div class="mb-3">
+              <label for="title" class="form-label">Movie Title *</label>
+              <input 
+                type="text"
+                id="title"
+                name="title"
+                class="form-control"
+                value="{{ movie.title|default:'' }}"
+                placeholder="Enter movie title"
+                required
+              >
+            </div>
 
-      <div class="text-end">
+            <div class="mb-3">
+              <label for="description" class="form-label">Description *</label>
+              <textarea 
+                id="description"
+                name="description"
+                class="form-control"
+                rows="5"
+                placeholder="Enter movie description"
+                required
+              >{{ movie.description|default:'' }}</textarea>
+            </div>
 
-        <a href="{% url 'movie_list' %}" class="btn btn-secondary">
-          Cancel
-        </a>
+          </div>
 
-        <button type="submit" class="btn btn-primary">
-          Save
-        </button>
+          <div class="col-md-4">
 
-      </div>
+            <div class="mb-3">
+              <label for="release_date" class="form-label">Release Date *</label>
+              <input 
+                type="date"
+                id="release_date"
+                name="release_date"
+                class="form-control"
+                value="{{ movie.release_date|default:'' }}"
+                required
+              >
+            </div>
 
-    </form>
+            <div class="mb-3">
+              <label for="thumbnail" class="form-label">
+                Thumbnail Image {% if not movie %}*{% endif %}
+              </label>
+              <input 
+                type="file" 
+                id="thumbnail"
+                name="thumbnail" 
+                class="form-control"
+                accept="image/*"
+                {% if not movie %}required{% endif %}
+              >
+              {% if movie.thumbnail %}
+                <small class="text-muted d-block mt-2">
+                  Current: {{ movie.thumbnail.name|slice:"uploads/"|default:"Uploaded" }}
+                </small>
+              {% endif %}
+            </div>
+
+            <div class="mb-3">
+              <label for="video_file" class="form-label">
+                Video File {% if not movie %}*{% endif %}
+              </label>
+              <input 
+                type="file" 
+                id="video_file"
+                name="video_file" 
+                class="form-control"
+                accept="video/*"
+                {% if not movie %}required{% endif %}
+              >
+              {% if movie.video_file %}
+                <small class="text-muted d-block mt-2">
+                  Current: {{ movie.video_file.name|slice:"uploads/"|default:"Uploaded" }}
+                </small>
+              {% endif %}
+            </div>
+
+          </div>
+
+        </div>
+
+        <hr class="my-4">
+
+        <div class="d-flex justify-content-end gap-3">
+
+          <a href="{% url 'movie_list' %}" class="btn btn-secondary px-4">
+            Cancel
+          </a>
+
+          <button type="submit" class="btn btn-primary px-4">
+            {% if movie %}💾 Update Movie{% else %}💾 Save Movie{% endif %}
+          </button>
+
+        </div>
+
+      </form>
+
+    </div>
 
   </div>
 

@@ -2,15 +2,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <title>FilmStream Admin</title>
-
   
-  <link rel="stylesheet" href="{% static 'css/admin.css' %}">
+  <!-- Bootstrap 5 CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  
+  <!-- Custom Admin CSS -->
+  <link rel="stylesheet" href="{% static 'css/admin.css' %}">
 
   <!-- Chart JS -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -18,11 +18,8 @@
 
 <body>
 
-
-<!-- ================= NAVBAR ================= -->
-
-<nav class="navbar navbar-dark px-4">
-
+<!-- NAVBAR -->
+<nav class="navbar px-4">
   <div class="d-flex align-items-center gap-2">
     <span class="fs-4">🎬</span>
     <span class="navbar-brand fw-semibold mb-0">
@@ -30,52 +27,35 @@
     </span>
   </div>
 
-
   <div class="dropdown">
-
-    <button
-      class="btn btn-dark dropdown-toggle"
-      data-bs-toggle="dropdown"
-    >
+    <button class="btn dropdown-toggle" data-bs-toggle="dropdown">
       Admin
     </button>
 
     <ul class="dropdown-menu dropdown-menu-end shadow">
-
       <li>
         <a class="dropdown-item" href="{% url 'change_password' %}">
           🔒 Change Password
         </a>
       </li>
-
       <li><hr class="dropdown-divider"></li>
-
       <li>
         <a class="dropdown-item text-danger" href="{% url 'login' %}">
           🚪 Logout
         </a>
       </li>
-
     </ul>
-
   </div>
-
 </nav>
 
-
-<!-- ================= MAIN LAYOUT ================= -->
-
+<!-- MAIN LAYOUT -->
 <div class="layout">
 
-
-  <!-- ========== SIDEBAR ========== -->
-
+  <!-- SIDEBAR -->
   <aside class="sidebar">
-
     <div class="sidebar-title mb-4">
       ⚙ Admin Panel
     </div>
-
 
     <a href="{% url 'dashboard' %}">
       📊 Dashboard
@@ -92,23 +72,15 @@
     <a href="{% url 'report' %}">
       📈 Reports
     </a>
-
-
   </aside>
 
-
-  <!-- ========== CONTENT AREA ========== -->
-
+  <!-- CONTENT AREA -->
   <main class="content">
-
     {% block content %}
-
     {% endblock %}
-
   </main>
 
 </div>
-
 
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>

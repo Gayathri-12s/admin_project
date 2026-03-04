@@ -6,14 +6,13 @@
 
   <h3 class="page-title mb-4">📜 User Watch History</h3>
 
-  <div class="card shadow-lg"
-       style="background:#020617; border:1px solid #1e293b;">
+  <div class="card">
 
     <div class="card-body p-0">
 
       <table class="table table-hover mb-0">
 
-        <thead style="background:#020617; color:#94a3b8;">
+        <thead>
           <tr>
             <th class="ps-4 py-3">Movie</th>
             <th class="py-3">Watched On</th>
@@ -24,14 +23,14 @@
 
           {% for item in history %}
 
-          <tr style="border-top:1px solid #1e293b;">
+          <tr>
 
             <td class="ps-4 py-3 fw-semibold">
               {{ item.movie.title }}
             </td>
 
             <td class="py-3">
-              {{ item.watched_at|date:"d M Y" }}
+              {{ item.watched_at|date:"M d, Y - g:i A" }}
             </td>
 
           </tr>

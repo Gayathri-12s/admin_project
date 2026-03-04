@@ -1,65 +1,192 @@
 {% load static %}
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Admin Login</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Login - FilmStream</title>
 
+  <!-- Bootstrap 5 CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  
+  <!-- Custom Admin CSS -->
   <link rel="stylesheet" href="{% static 'css/admin.css' %}">
 
+  <style>
+    body {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    }
+
+    .login-container {
+      width: 100%;
+      max-width: 420px;
+      padding: 20px;
+    }
+
+    .login-card {
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      overflow: hidden;
+      animation: slideUp 0.5s ease-out;
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .login-header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      padding: 40px 30px;
+      text-align: center;
+    }
+
+    .login-icon {
+      width: 80px;
+      height: 80px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 15px;
+      backdrop-filter: blur(10px);
+    }
+
+    .login-header h4 {
+      color: white;
+      font-weight: 700;
+      margin: 0;
+      font-size: 1.8rem;
+    }
+
+    .login-header p {
+      color: rgba(255, 255, 255, 0.9);
+      margin: 8px 0 0;
+      font-size: 0.95rem;
+    }
+
+    .login-body {
+      padding: 40px 35px;
+    }
+
+    .form-control {
+      border-radius: 10px;
+      border: 2px solid #e2e8f0;
+      padding: 12px 16px;
+      transition: all 0.3s ease;
+    }
+
+    .form-control:focus {
+      border-color: #667eea;
+      box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+      outline: none;
+    }
+
+    .btn-login {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border: none;
+      border-radius: 10px;
+      padding: 14px;
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: white;
+      width: 100%;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+    }
+
+    .btn-login:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 25px rgba(102, 126, 234, 0.5);
+    }
+
+    .alert {
+      border-radius: 10px;
+      border: none;
+      padding: 14px 18px;
+      margin-bottom: 20px;
+    }
+
+    .alert-danger {
+      background: linear-gradient(135deg, rgba(250, 112, 154, 0.15) 0%, rgba(254, 225, 64, 0.15) 100%);
+      color: #c81e4d;
+      border-left: 4px solid #fa709a;
+    }
+  </style>
 </head>
 
-<body class="d-flex justify-content-center align-items-center vh-100 bg-light">
+<body>
 
-<div class="card shadow-lg" style="width:380px">
-  <div class="card-body">
+<div class="login-container">
+  <div class="login-card">
+    
+    <!-- Card Header -->
+    <div class="login-header">
+      <div class="login-icon">
+        <span style="font-size: 2.5rem;">🎬</span>
+      </div>
+      <h4>FilmStream Admin</h4>
+      <p>Sign in to manage your platform</p>
+    </div>
 
-    <h4 class="text-center mb-4">Admin Login</h4>
+    <!-- Card Body -->
+    <div class="login-body">
 
-    <!-- Show Messages -->
-    {% if messages %}
-      {% for message in messages %}
-        <div class="alert alert-danger">
-          {{ message }}
+      <!-- Show Error Messages -->
+      {% if messages %}
+        {% for message in messages %}
+          <div class="alert alert-danger">
+            <strong>⚠️ Error:</strong> {{ message }}
+          </div>
+        {% endfor %}
+      {% endif %}
+
+      <!-- Login Form -->
+      <form method="POST">
+        {% csrf_token %}
+
+        <div class="mb-3">
+          <label class="form-label fw-semibold">Email Address</label>
+          <input 
+            type="email"
+            name="email"
+            class="form-control"
+            placeholder="admin@filmstream.com"
+            required
+          >
         </div>
-      {% endfor %}
-    {% endif %}
 
-    <!-- REAL FORM -->
-    <form method="POST">
+        <div class="mb-4">
+          <label class="form-label fw-semibold">Password</label>
+          <input 
+            type="password"
+            name="password"
+            class="form-control"
+            placeholder="••••••••"
+            required
+          >
+        </div>
 
-      {% csrf_token %}
+        <button type="submit" class="btn-login">
+          Sign In
+        </button>
 
-      <div class="mb-3">
-        <label>Email</label>
-        <input 
-          type="email"
-          name="email"
-          class="form-control"
-          placeholder="admin@email.com"
-          required
-        >
-      </div>
+      </form>
 
-      <div class="mb-3">
-        <label>Password</label>
-        <input 
-          type="password"
-          name="password"
-          class="form-control"
-          placeholder="********"
-          required
-        >
-      </div>
-
-      <button type="submit" class="btn btn-primary w-100">
-        Login
-      </button>
-
-    </form>
+    </div>
 
   </div>
 </div>
+
+<!-- Bootstrap 5 JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>

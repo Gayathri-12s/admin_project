@@ -66,17 +66,18 @@ def dashboard(request):
 
     total_movies = Movie.objects.count()
     total_users = User.objects.filter(is_admin=False).count()
-
     total_views = Movie.objects.aggregate(
         total=Sum("view_count")
     )["total"] or 0
+
+    recent_movies = Movie.objects.all().order_by("-id")[:5]
 
     return render(request, "admin_dashboard.html", {
         "total_movies": total_movies,
         "total_users": total_users,
         "total_views": total_views,
+        "recent_movies": recent_movies,
     })
-
 
 # ----------------------------------
 # Movies

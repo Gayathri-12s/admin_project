@@ -1,74 +1,61 @@
 {% extends 'base.html' %}
-
 {% block content %}
 
-<h3 class="page-title mb-4">🎬 Movies</h3>
-
-<div class="d-flex justify-content-end mb-3">
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h1 class="page-title mb-0">Movies</h1>
   <a href="{% url 'add_movie' %}" class="btn btn-primary">
-    + Add Movie
+    Add New Movie
   </a>
 </div>
 
-<div class="card shadow form-card">
-
+<div class="card">
   <div class="card-body p-0">
+    <div class="table-responsive">
+      <table class="table mb-0">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th class="text-center">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for movie in movies %}
+          <tr>
+            <td class="fw-semibold">{{ movie.title }}</td>
+            <td class="text-center">
+              <div class="d-inline-flex gap-2">
+                
+                <a href="{% url 'view_movie' movie.id %}" class="btn btn-sm btn-info">
+                  View
+                </a>
 
-    <table class="table table-hover align-middle mb-0">
+                <a href="{% url 'edit_movie' movie.id %}" class="btn btn-sm btn-warning">
+                  Edit
+                </a>
 
-      <thead class="table-dark">
-        <tr>
-          <th>Title</th>
-          <th class="text-center">Actions</th>
-        </tr>
-      </thead>
+                <button 
+                  type="button" 
+                  class="btn btn-sm btn-danger"
+                  data-bs-toggle="modal" 
+                  data-bs-target="#deleteModal"
+                  data-url="{% url 'delete_movie' movie.id %}">
+                  Delete
+                </button>
 
-      <tbody>
-
-        {% for movie in movies %}
-
-        <tr>
-
-          <td>{{ movie.title }}</td>
-
-          <td class="text-center">
-
-            <a href="{% url 'view_movie' movie.id %}"
-               class="btn btn-sm btn-info">
-              View
-            </a>
-
-            <a href="{% url 'edit_movie' movie.id %}"
-               class="btn btn-sm btn-warning">
-              Edit
-            </a>
-
-            <a href="{% url 'delete_movie' movie.id %}"
-               class="btn btn-sm btn-danger"
-               onclick="return confirm('Delete this movie?')">
-              Delete
-            </a>
-
-          </td>
-
-        </tr>
-
-        {% empty %}
-
-        <tr>
-          <td colspan="2" class="text-center text-muted py-4">
-            No movies yet
-          </td>
-        </tr>
-
-        {% endfor %}
-
-      </tbody>
-
-    </table>
-
+              </div>
+            </td>
+          </tr>
+          {% empty %}
+          <tr>
+            <td colspan="2" class="text-center text-muted py-4">
+              No movies found. Click "Add New Movie" to get started!
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
   </div>
-
 </div>
 
 {% endblock %}
